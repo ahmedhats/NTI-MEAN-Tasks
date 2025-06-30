@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table id="users" >
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+      </tr>
+    </table>
+    <script>
+/*•	Table display number of users
+1.a Ask the user for number of persons wanted to be entered (the value should be a number)
+1.b then ask for users’ information sequentially. name : length should be more
+ than 3 and less than 10 characters age : should be greater than 10 and less than 60.
+1.c print users’ information in HTML Table */
+const numOfUsers = prompt("Enter the number of users you want to enter: ");
+for (let i = 0; i < numOfUsers; i++) {
+    const name = prompt("Enter the name of the user: ");
+      while(name.length < 3 || name.length > 10){
+        name = prompt("name should be more than 3 and less than 10 characters: ");
+      }
+    const age = prompt("Enter the age of the user: ");
+    while(isNaN(age) || age < 10 || age > 60){
+        age = prompt("age should be a number greater than 10 and less than 60: ");
+    }
+    const table = document.getElementById("users");
+    const tr = document.createElement("tr");
+    const td1 = document.createElement("td");
+    const td2 = document.createElement("td");
+    td1.innerText = name;
+    td2.innerText = age;
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    table.appendChild(tr);
+}
+
+
+    </script>
+</body>
+</html>

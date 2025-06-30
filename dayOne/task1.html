@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        
+//•	Date Full-Name Day
+//1.2. Make a function that takes date string as a parameter,
+//and returns the Day name (Saturday, Sunday,) of the given date.
+function getday(date){
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[date.getDay()];
+}
+console.log(getday(new Date()));
+
+
+    </script>
+</body>
+</html>

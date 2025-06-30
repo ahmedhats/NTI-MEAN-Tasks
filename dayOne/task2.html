@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+//1.1. Show prompt that ask user to enter his birth date and tell user to enter
+// the date in the following format (DD – MM – YYYY) ex. 22–01–1999, and then create
+//function that take user input as a parameter and ensure that the string is
+// entered in this format (that user entered string is 10 characters and contains
+// (-) after the second character and after fifth character).[use RegExp].
+
+//. If the user input was correct: make the function create new date object,
+//  and initialize it with Day, Month, year values (using date constructor:
+//  Date(y,m,d)) and then show alert to the user with the date in date string
+//  format. b. If user input wasn't correct, show alert saying, "Wrong Date Format".
+
+function testInput(input){
+    const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+    if(regex.test(input)){
+        const dateArr = input.split('-');
+        const date = new Date(dateArr[2],dateArr[1]-1,dateArr[0]);
+        return date;
+    }
+    return null;
+}
+
+while(true){
+    const input = prompt("Enter your birth date in the following format (DD–MM–YYYY): ");
+    const date = testInput(input);
+    if(date){
+        alert(date.toDateString());
+        break;
+    }
+    alert("wrong format please try again");
+}
+    
+    </script>
+</body>
+</html>
