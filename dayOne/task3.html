@@ -18,14 +18,25 @@
 1.b then ask for users’ information sequentially. name : length should be more
  than 3 and less than 10 characters age : should be greater than 10 and less than 60.
 1.c print users’ information in HTML Table */
-const numOfUsers = prompt("Enter the number of users you want to enter: ");
+
+function isValidNumber(input) {
+  return input.trim() !== "" && !isNaN(input);
+}
+
+let numOfUsers;
+do{
+    numOfUsers = prompt("Enter the number of users you want to enter: ");
+}while(!isValidNumber(numOfUsers));
+numOfUsers = Number(numOfUsers);
+
 for (let i = 0; i < numOfUsers; i++) {
-    const name = prompt("Enter the name of the user: ");
-      while(name.length < 3 || name.length > 10){
-        name = prompt("name should be more than 3 and less than 10 characters: ");
+    let name = prompt("Enter the name of the user: ");
+      while(name.length < 3 || name.length > 10 || isValidNumber(name))
+      {
+        name = prompt("name should be valid and more than 3 and less than 10 characters: ");
       }
-    const age = prompt("Enter the age of the user: ");
-    while(isNaN(age) || age < 10 || age > 60){
+    let age = prompt("Enter the age of the user: ");
+    while(!isValidNumber(age) || age < 10 || age > 60){
         age = prompt("age should be a number greater than 10 and less than 60: ");
     }
     const table = document.getElementById("users");

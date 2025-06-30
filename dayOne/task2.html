@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
+      //1.1. Show prompt that ask user to enter his birth date and tell user to enter
+      // the date in the following format (DD – MM – YYYY) ex. 22–01–1999, and then create
+      //function that take user input as a parameter and ensure that the string is
+      // entered in this format (that user entered string is 10 characters and contains
+      // (-) after the second character and after fifth character).[use RegExp].
 
+      //. If the user input was correct: make the function create new date object,
+      //  and initialize it with Day, Month, year values (using date constructor:
+      //  Date(y,m,d)) and then show alert to the user with the date in date string
+      //  format. b. If user input wasn't correct, show alert saying, "Wrong Date Format".
 
-//1.1. Show prompt that ask user to enter his birth date and tell user to enter
-// the date in the following format (DD – MM – YYYY) ex. 22–01–1999, and then create
-//function that take user input as a parameter and ensure that the string is
-// entered in this format (that user entered string is 10 characters and contains
-// (-) after the second character and after fifth character).[use RegExp].
+      function testInput(input) {
+        const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+        if (regex.test(input)) {
+          return input.split("-");
+        }
+        return null;
+      }
 
-//. If the user input was correct: make the function create new date object,
-//  and initialize it with Day, Month, year values (using date constructor:
-//  Date(y,m,d)) and then show alert to the user with the date in date string
-//  format. b. If user input wasn't correct, show alert saying, "Wrong Date Format".
-
-function testInput(input){
-    const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
-    if(regex.test(input)){
-        const dateArr = input.split('-');
-        const date = new Date(dateArr[2],dateArr[1]-1,dateArr[0]);
-        return date;
-    }
-    return null;
-}
-
-while(true){
-    const input = prompt("Enter your birth date in the following format (DD–MM–YYYY): ");
-    const date = testInput(input);
-    if(date){
-        alert(date.toDateString());
-        break;
-    }
-    alert("wrong format please try again");
-}
-    
+      while (true) {
+        const input = prompt(
+          "Enter your birth date in the following format (DD–MM–YYYY): "
+        );
+        const dateArr = testInput(input);
+        if (dateArr) {
+          const day = parseInt(dateArr[0], 10);
+          const month = parseInt(dateArr[1], 10);
+          const year = parseInt(dateArr[2], 10);
+          const date = new Date(year, month - 1, day);
+          if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 0) {
+            alert(`${day}/${month}/${year}`);
+            break;
+          }
+        }
+        alert("wrong format please try again");
+      }
     </script>
-</body>
+  </body>
 </html>
