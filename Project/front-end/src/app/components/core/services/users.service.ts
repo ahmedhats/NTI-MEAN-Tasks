@@ -7,11 +7,12 @@ import { Observable } from 'rxjs';
 })
 
 export class UsersService{
+    
     constructor(private _HttpClient:HttpClient){
 
     }
 
-    login(){
-      this._HttpClient.post(``)
+    login(loginData:any){
+      this._HttpClient.post(`http://localhost:3000/usr/login`,loginData)
     }
 } 
