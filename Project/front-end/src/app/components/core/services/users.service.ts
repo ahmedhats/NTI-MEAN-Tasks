@@ -12,7 +12,4 @@ export class UsersService{
 
     }
 
-    login(loginData:any){
-      this._HttpClient.post(`http://localhost:3000/usr/login`,loginData)
-    }
 } 
