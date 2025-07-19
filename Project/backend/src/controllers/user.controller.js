@@ -1,5 +1,5 @@
 import { userModel } from "../../db/models/user.model.js";
-
+import bcrypt from 'bcrypt'
 
 const getUsers = async (req, res) => {
     const users = await userModel.find();
@@ -7,9 +7,12 @@ const getUsers = async (req, res) => {
 }
 
 const addUser = async (req, res) => {
-    console.log(req.body)
+    req.body.password = bcrypt.hashSync(req.body.password, 8);
     const userToAdd = await userModel.insertMany(req.body)
+    
+    userToAdd[0].password=undefined;
     res.status(201).json({ message: "Added Successfully", userToAdd })
+
 }
 
 const updateUser = async (req, res) => {
@@ -28,3 +31,4 @@ export {
     updateUser,
     deleteUser,
 }
+//crud for products and cart and user

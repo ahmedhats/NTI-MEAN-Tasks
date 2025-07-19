@@ -5,11 +5,7 @@ const productsSchema = new Schema({
     description:String,
     price:Number,
     stock:Number,
-    image:String,
-    owner:{
-        type:mongoose.Types.ObjectId,
-    }
-    
+    image:String,   
 },
 {
     versionKey:false
