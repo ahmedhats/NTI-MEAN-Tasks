@@ -2,28 +2,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/User.interface';
+import {DecodedToken} from '../interfaces/DecodedToken.interface';
 import { Router } from '@angular/router';
-
+import {jwtDecode } from 'jwt-decode'
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   constructor(private _HttpClient:HttpClient,private _Router:Router){ }
 
-  isUserLoggedIn:boolean=false;
+  // isUserLoggedIn:boolean=false;
+  decodedUser!:DecodedToken;
+  
 
-  private currentUser!:User;
-
-  setUser(user:User){
-    this.currentUser=user;
-  }
-
-  getCurrentUser():User{
-    return this.currentUser;
+  getCurrentUserId():String{
+    return this.decodedUser._id;
   }
 
   isAdmin():boolean{
-    return this.currentUser?.email === "ahmedhatdev@gmail.com";
+    return this.decodedUser.role === "admin";
   }
 
   login(loginData:any):Observable<any>{
@@ -34,9 +31,20 @@ export class AuthService {
     )
   }
 
+  isUserLoggedIn():boolean{
+    const token = localStorage.getItem("token");
+    if(token){
+      const decoded:DecodedToken=jwtDecode(token)
+      this.decodedUser=decoded;
+      console.log(decoded)
+      if(decoded._id&&decoded.role&&decoded.iat)return true
+    }
+    return false;
+  }
+
   logout():void{
     localStorage.removeItem("token");
-    this.isUserLoggedIn=false;
+    // this.isUserLoggedIn=false;
     this._Router.navigate(['/login'])
   }
 

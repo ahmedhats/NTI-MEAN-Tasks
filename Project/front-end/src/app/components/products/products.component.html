@@ -3,7 +3,7 @@
     <div class="products-header">
       <h1>Our Products</h1>
       <p>Discover our curated collection of amazing products</p>
-      <!-- 😍 Admin can add new products -->
+      
       @if(isAdmin){
       <button
         class="btn btn-primary add-product-btn"
@@ -70,7 +70,6 @@
     </div>
     } }
 
-    <!-- 😍 Product form modal for adding/editing products -->
     <app-product-form
       [isVisible]="showProductModal"
       [product]="selectedProduct"

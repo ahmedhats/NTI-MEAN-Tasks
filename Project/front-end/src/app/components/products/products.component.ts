@@ -81,6 +81,5 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getProducts();
     this.isAdmin = this._AuthService.isAdmin();
-    this.isAdmin = true; // for now
   }
 }
