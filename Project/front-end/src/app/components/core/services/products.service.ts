@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../interfaces/Product.interface';
@@ -12,8 +12,17 @@ export class ProductsService {
   constructor(private _HttpClient:HttpClient){ }
 
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem("token");
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'token': `${token}`
+    });
+  }
+
   getProducts():Observable<any>{
-    return this._HttpClient.get(`http://localhost:3000/products`)
+    return this._HttpClient.get(`http://localhost:3000/products`,
+      {headers: this.getHeaders()})
     // .subscribe({
     //   next:()=>{},
     //   error:()=>{},
@@ -24,15 +33,18 @@ export class ProductsService {
   
 
   addProducts(product:Product):Observable<any>{
-    return this._HttpClient.post('http://localhost:3000/products',product)
+    return this._HttpClient.post('http://localhost:3000/products', product, 
+      {headers: this.getHeaders()})
   }
 
   updateProducts(product:Product):Observable<any>{
-    return this._HttpClient.put(`http://localhost:3000/products/${product._id}`,product)
+    return this._HttpClient.put(`http://localhost:3000/products/${product._id}`, product,
+      {headers: this.getHeaders()})
   }
 
   deleteProducts(product:Product):Observable<any>{
-    return this._HttpClient.delete(`http://localhost:3000/products/${product._id}`)
+    return this._HttpClient.delete(`http://localhost:3000/products/${product._id}`,
+      {headers: this.getHeaders()})
   }
 }
 

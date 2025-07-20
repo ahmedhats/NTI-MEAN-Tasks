@@ -1,14 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/User.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private _HttpClient:HttpClient){ }
-    
+  constructor(private _HttpClient:HttpClient,private _Router:Router){ }
+
+  isUserLoggedIn:boolean=false;
+
   private currentUser!:User;
 
   setUser(user:User){
@@ -23,8 +26,18 @@ export class AuthService {
     return this.currentUser?.email === "ahmedhatdev@gmail.com";
   }
 
-  login(loginData:any){
-    return this._HttpClient.post(`http://localhost:3000/users/login`,loginData)
+  login(loginData:any):Observable<any>{
+    return this._HttpClient.post(`http://localhost:3000/users/login`,loginData,
+      {headers: new HttpHeaders(
+        {'Authorization':`Bearer ${localStorage.getItem("token")}`}
+      )}
+    )
+  }
+
+  logout():void{
+    localStorage.removeItem("token");
+    this.isUserLoggedIn=false;
+    this._Router.navigate(['/login'])
   }
 
   signup(user:User):Observable<any>{

@@ -43,8 +43,9 @@ export class LoginComponent {
         console.log("login successful", response);
         this.successMessage = response.message;
         this.isBtnSubmit = false;
-        this._AuthService.setUser(response.user);
-        window.localStorage.setItem("token",response.user.token)
+        // this._AuthService.setUser(response.token);
+        window.localStorage.setItem("token",response.token)
+        this._AuthService.isUserLoggedIn=true;
         setTimeout(() => {
           this._Router.navigate(['/']);
         }, 2000);

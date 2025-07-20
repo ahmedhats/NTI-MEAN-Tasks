@@ -30,11 +30,11 @@
     </ul>
 
     <div class="navbar-auth">
-      @if(false){
-        <a routerLink="/login" class="auth-link">Login</a>
-        <a routerLink="/signup" class="auth-link signup">Sign Up</a>
+      @if(!isLoggedIn){
+      <a routerLink="/login" class="auth-link">Login</a>
+      <a routerLink="/signup" class="auth-link signup">Sign Up</a>
       }@else{
-        <button class="auth-link">Log out</button>
+      <button class="auth-link" (click)="logout()">Log out</button>
       }
     </div>
   </div>
