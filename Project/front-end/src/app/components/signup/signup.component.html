@@ -6,6 +6,18 @@
         <p>Join us and start exploring amazing products</p>
       </div>
 
+      @if(errorMessage){
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      }
+
+      @if(successMessage){
+      <div class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
+      }
+
       <form [formGroup]="register" (ngSubmit)="sendData()" class="signup-form">
         <div class="form-group">
           <label for="name" class="form-label">Full Name</label>
@@ -60,8 +72,11 @@
           [disabled]="register.invalid || isBtnSubmit"
           class="btn btn-primary submit-btn"
         >
-          <span *ngIf="!isBtnSubmit">Create Account</span>
-          <span *ngIf="isBtnSubmit">Creating Account...</span>
+          @if(!isBtnSubmit){
+          <span>Create Account</span>
+          } @else{
+          <span>Creating Account...</span>
+          }
         </button>
       </form>
 

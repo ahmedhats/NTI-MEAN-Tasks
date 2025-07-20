@@ -26,8 +26,9 @@ export class AuthService {
   login(loginData:any){
     return this._HttpClient.post(`http://localhost:3000/users/login`,loginData)
   }
+
   signup(user:User):Observable<any>{
-    return this._HttpClient.post(`http://localhost:3000/users`,user)
+    return this._HttpClient.post(`http://localhost:3000/users/signup`,user)
     // .subscribe({
     //   next:()=>{},
     //   error:()=>{},

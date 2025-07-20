@@ -6,7 +6,21 @@
         <p>Sign in to your account to continue</p>
       </div>
 
-      <form class="login-form">
+
+      @if(errorMessage){
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      }
+
+
+      @if(successMessage){
+      <div class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
+      }
+
+      <form class="login-form" [formGroup]="loginForm" (ngSubmit)="sendData()">
         <div class="form-group">
           <label for="email" class="form-label">Email Address</label>
           <input
@@ -14,6 +28,7 @@
             id="email"
             class="form-control"
             placeholder="Enter your email address"
+            formControlName="email"
           />
         </div>
 
@@ -24,6 +39,7 @@
             id="password"
             class="form-control"
             placeholder="Enter your password"
+            formControlName="password"
           />
         </div>
 
@@ -40,8 +56,16 @@
           <a href="#" class="forgot-link">Forgot password?</a>
         </div>
 
-        <button type="submit" class="btn btn-primary submit-btn">
-          Sign In
+        <button
+          type="submit"
+          class="btn btn-primary submit-btn"
+          [disabled]="loginForm.invalid || isBtnSubmit"
+        >
+          @if(!isBtnSubmit){
+          <span>Sign In</span>
+          } @else{
+          <span>Signing In...</span>
+          }
         </button>
       </form>
 

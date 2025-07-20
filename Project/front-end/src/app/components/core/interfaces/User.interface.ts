@@ -4,4 +4,5 @@ export interface User{
   email: String,
   age: Number,
   password: String,
+  role:String,
 }
