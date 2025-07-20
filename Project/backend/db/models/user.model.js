@@ -6,6 +6,11 @@ const userSchema = new Schema({
     email: String,
     age: Number,
     password: String,
+    role:{
+        type:String,
+        enum:['admin','user'],
+        default:'user'
+    }
 
 },
 {
