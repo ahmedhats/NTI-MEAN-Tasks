@@ -19,7 +19,7 @@ export class ProductFormComponent implements OnChanges {
   @Input() isEditMode: boolean = false; 
 
   @Output() closeModal = new EventEmitter<void>();
-//   @Output() productSaved = new EventEmitter<Product>();
+  @Output() formSubmit = new EventEmitter<void>();
 
   productForm = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
@@ -54,23 +54,25 @@ export class ProductFormComponent implements OnChanges {
         formData._id = this.product._id;
         this._ProductsService.updateProducts(formData).subscribe({
               next:(data)=>{
+                this._ProductsService.updateProductFromArray(formData)
                 console.log(data,"updated successfully")
-                // this.productSaved.emit(data)  
               },
               error:()=>{},
-              complete:()=>{}
+              complete:()=>{
+                this.formSubmit.emit();
+              }
             })
       }
       else{
         console.log("i am in add")
         this._ProductsService.addProducts(formData).subscribe({
-        next:(data)=>{
-            console.log(data,"updated successfully")
-            // this.productSaved.emit(data);
-        },
-        error:()=>{},
-        complete:()=>{}
-            })
+          next:(data)=>{
+             console.log(data,"updated successfully")
+             this._ProductsService.addProductToArray(formData);
+          },
+          error:()=>{},
+          complete:()=>{this.formSubmit.emit();}
+        })
       }
       this.onClose();
     }

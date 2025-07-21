@@ -13,7 +13,7 @@ import { ProductFormComponent } from '../product-form/product-form.component';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
-  products: Product[] = [];
+  products:Product[]=[];
   isEmpty: boolean = true;
   isLoading: boolean = true;
   isAdmin: boolean = false;
@@ -25,20 +25,29 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private _ProductsService: ProductsService, 
-    private _AuthService: AuthService
+    private _AuthService: AuthService,
   ) {}
+
+  refreshProductsArray():void{
+    console.log("i am in refresh")
+    this.products=this._ProductsService.getProductsArray();
+  }
 
   getProducts() {
     this._ProductsService.getProducts().subscribe({
       next: (res) => {
-        this.products = res.products;
+        this._ProductsService.setProductsArray(res.products);
+        this.refreshProductsArray()
         this.isLoading = false;
-        console.log(this.products)
+        console.log("response:",res)
       },
-      error: (err) => { console.log(err) },
+      error: (err) => { 
+        console.log(err)
+        this.isLoading=false;
+      },
       complete: () => {
-        console.log("Done")
-        if (this.products.length) this.isEmpty = false;
+        console.log("fetched wit no errors")
+        if (this.products.length) {this.isEmpty = false;}
         this.isLoading = false;
       }
     })
@@ -70,8 +79,16 @@ export class ProductsComponent implements OnInit {
     if (confirm('Are you sure you want to delete this product?')) {
       this._ProductsService.deleteProducts(product).subscribe(
         {
-          next:()=>{console.log(product , "deleted")},
-          complete:()=>{this.products = this.products.filter(item => item._id !== product._id);}
+          next:()=>{
+            console.log(product , "deleted")
+            this._ProductsService.deleteProductFromArray(product._id)
+          },
+          error:(error)=>{
+            console.log("error deleting product",error)
+          },
+          complete:()=>{
+            this.refreshProductsArray();
+           }
         }
       )
       this.getProducts();

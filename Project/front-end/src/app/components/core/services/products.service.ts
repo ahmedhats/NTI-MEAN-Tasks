@@ -11,6 +11,27 @@ export class ProductsService {
   
   constructor(private _HttpClient:HttpClient){ }
 
+  private products:Product[]=[];
+
+  getProductsArray():any{
+    return this.products;
+  }
+  setProductsArray(arr:any):void{
+    this.products=arr;
+  }
+  deleteProductFromArray(id:any):void{
+    this.products.filter(item => item._id !== id);
+  }
+  updateProductFromArray(product:any):void{
+    let index = this.products.findIndex(p => p._id === product._id);
+    if(index !== -1){
+      this.products[index] = product;
+      console.log("array updated", this.products[index]);
+    } 
+  }
+  addProductToArray(product:any):void{
+    this.products.push(product)
+  }
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem("token");

@@ -3,13 +3,13 @@
     <div class="products-header">
       <h1>Our Products</h1>
       <p>Discover our curated collection of amazing products</p>
-      
+
       @if(isAdmin){
       <button
         class="btn btn-primary add-product-btn"
         (click)="openAddProductModal()"
       >
-      Add New Product
+        Add New Product
       </button>
       }
     </div>
@@ -21,12 +21,11 @@
       <p>Please wait while we fetch the latest products for you</p>
     </div>
     } @else { @if(isEmpty){
-    <h1>no products found!</h1>
+    <h1>couldn't find products! try again later</h1>
     } @else {
     <div class="products-grid">
       <div class="products-list">
-        @if(isAdmin){
-        @for(product of products; track product._id){
+        @if(isAdmin){ @for(product of products; track product._id){
         <div class="product-card">
           <div class="product-image">
             <img [src]="product.image" [alt]="product.description" />
@@ -40,20 +39,15 @@
                 class="btn btn-secondary"
                 (click)="openEditProductModal(product)"
               >
-                 Update
+                Update
               </button>
-              <button
-                class="btn btn-danger"
-                (click)="deleteProduct(product)"
-              >
-                 Delete
+              <button class="btn btn-danger" (click)="deleteProduct(product)">
+                Delete
               </button>
             </div>
           </div>
         </div>
-        } } @else {
-
-        @for(product of products; track product._id){
+        } } @else { @for(product of products; track product._id){
         <div class="product-card">
           <div class="product-image">
             <img [src]="product.image" [alt]="product.description" />
@@ -75,6 +69,7 @@
       [product]="selectedProduct"
       [isEditMode]="isEditMode"
       (closeModal)="closeProductModal()"
+      (formSubmit)="refreshProductsArray()"
     ></app-product-form>
   </div>
 </div>
