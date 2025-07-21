@@ -11,6 +11,7 @@ import { MainComponent } from './components/main/main.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
   { path: '', component:MainComponent,children:[
@@ -23,7 +24,8 @@ export const routes: Routes = [
           ]},
     { path: 'about', component: AboutComponent,title:'About🤝' },
     {path:'gallery',component:GalleryComponent,title:'Gallery🖼️'},
-    { path: 'products', component: ProductsComponent,title:'Products🛒' },    
+    { path: 'products', component: ProductsComponent,title:'Products🛍️' },  
+    {path:'cart',component:CartComponent,title:'cart🛒'}  ,
   ]},
   {path:'',component:AuthComponent,children:[
     {path:'login',component:LoginComponent,title:'Login🚪'},

@@ -13,11 +13,12 @@ export class NavbarComponent implements OnInit {
 
   constructor(private readonly _AuthService:AuthService){}
   isLoggedIn!:boolean;
-
+  isAdmin!:boolean;
   logout():void{
    this._AuthService.logout();
   }
   ngOnInit():void{
     this.isLoggedIn=this._AuthService.isUserLoggedIn();
+    this.isAdmin=this._AuthService.isAdmin();
   }
 }

@@ -27,6 +27,13 @@
           >Products</a
         >
       </li>
+      @if(!isAdmin){
+      <li class="nav-item">
+        <a routerLink="/cart" routerLinkActive="active" class="nav-link"
+          >Cart</a
+        >
+      </li>
+      }
     </ul>
 
     <div class="navbar-auth">
